@@ -1,6 +1,6 @@
 
 import userModel from "../models/user.model.js";
-
+import jwt from 'jsonwebtoken'
 
 const registerUser=async (req,res)=>{
     try {
@@ -24,9 +24,19 @@ const registerUser=async (req,res)=>{
             name,email,password
         })
 
-        return res.status(201).json({
-            msg:"user created successfully",
-        })
+        if(newuser){
+            const token=jwt.sign({userid:newuser._id},process.env.JWT_SECRET) 
+            res.cookie("token",token)
+            
+            return res.status(201).json({
+                msg:"user created successfully",
+                id:newuser._id,
+                email:newuser.email
+            })
+
+
+        }
+
         
     } catch (error) {
         console.log(error);

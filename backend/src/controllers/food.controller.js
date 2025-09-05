@@ -1,6 +1,7 @@
 import foodModel from "../models/food.model.js";
 import { uploadVideo } from "../services/storage.service.js";
 import {v4 as uuidv4} from 'uuid'
+
 const createFood=async (req,res)=>{
     try {
         const foodpartner=req.user 
@@ -13,10 +14,19 @@ const createFood=async (req,res)=>{
         const uploadResult=await uploadVideo({file:videofile, filename:uuidv4()})
 
         console.log(uploadResult);
+
+        const newfood=await foodModel.create({
+            name,
+            description,
+            video:uploadResult.url,
+            foodpartner:foodpartner.userid
+        })
+
+
+        return res.status(201).json({msg:"new food created", newfood})
         
 
 
-        return res.json({msg:"works"})
         
         
     } catch (error) {

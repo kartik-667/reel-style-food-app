@@ -1,8 +1,14 @@
 import express from "express";
 import { authenticate } from "../middlewares/auth.middleware.js";
 import { createFood } from "../controllers/food.controller.js";
-
+import multer from 'multer' //as express cant read any file by default so we use this
 const foodRouter=express.Router()
+
+
+const upload=multer({
+    storage:multer.memoryStorage()
+})
+
 
 foodRouter.get('/test',(req,res)=>{
     res.status(200).json({
@@ -10,7 +16,7 @@ foodRouter.get('/test',(req,res)=>{
     })
 })
 
-foodRouter.post('/',authenticate,createFood)
+foodRouter.post('/',authenticate, upload.single("video"),createFood)
 
 
 export default foodRouter

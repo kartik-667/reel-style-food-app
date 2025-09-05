@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 
 const authenticate=async (req,res,next)=>{
     try {
-        const token=res.cookies.token
+        const token=req.cookies.token //access it using cookie-parser
         
 
         if(!token) return res.status(401).json({

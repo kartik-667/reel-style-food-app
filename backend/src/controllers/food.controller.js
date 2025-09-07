@@ -40,4 +40,22 @@ const createFood=async (req,res)=>{
     }
 }
 
-export {createFood}
+const getFoodItems=async (req,res)=>{
+    try {
+        const data=await foodModel.find()
+
+        return res.status(200).json({
+            data:data
+        })
+
+        
+    } catch (error) {
+        console.log(error);
+         return res.status(500).json({
+            message:'Internal server error'
+        })
+        
+    }
+}
+
+export {createFood, getFoodItems}

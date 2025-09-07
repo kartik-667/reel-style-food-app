@@ -1,6 +1,6 @@
 import express from "express";
 import { authenticate } from "../middlewares/auth.middleware.js";
-import { createFood } from "../controllers/food.controller.js";
+import { createFood, getFoodItems } from "../controllers/food.controller.js";
 import multer from 'multer' //as express cant read any file by default so we use this
 const foodRouter=express.Router()
 
@@ -17,6 +17,9 @@ foodRouter.get('/test',(req,res)=>{
 })
 
 foodRouter.post('/',authenticate, upload.single("video"),createFood)
+
+//api to get all food items
+foodRouter.get('/',authenticate,getFoodItems)
 
 
 export default foodRouter

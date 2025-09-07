@@ -108,7 +108,7 @@ const logoutUser=async (req,res)=>{
 
 const registerFoodpartner=async (req,res)=>{
     try {
-        const {name,email,password}=req.body
+        const {name,email,password, contactname, phone, address}=req.body
 
         if(!name || !email || !password){
             return res.status(400).json({
@@ -125,7 +125,7 @@ const registerFoodpartner=async (req,res)=>{
         }
 
         const newuser=await foodpartnerModel.create({
-            name,email,password
+            name,email,password,contactname,phone, address
         })
 
         if(newuser){
@@ -137,7 +137,8 @@ const registerFoodpartner=async (req,res)=>{
             return res.status(201).json({
                 msg:"food partner created successfully",
                 id:newuser._id,
-                email:newuser.email
+                email:newuser.email,
+                alldata:newuser
             })
 
 

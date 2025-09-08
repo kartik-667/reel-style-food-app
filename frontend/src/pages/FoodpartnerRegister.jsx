@@ -1,6 +1,36 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 export default function FoodpartnerRegister() {
+  const navigate=useNavigate()
+  const [form, setForm] = useState({
+name: '',
+email: '',
+password: '',
+contactname: '',
+phone: '',
+address: ''
+});
+const handleChange = (e) => {
+setForm({ ...form, [e.target.name]: e.target.value });
+};
+
+  const submitForm=async (e)=>{
+    e.preventDefault()
+
+    try {
+      const res=await axios.post("http://localhost:5555/api/auth/foodpartner/register",form,{withCredentials:true})
+      console.log(res);
+      navigate("/createfood")
+
+      
+      
+    } catch (error) {
+        console.log(error);
+        
+    }
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-6">
       <div className="w-full max-w-md">
@@ -17,7 +47,7 @@ export default function FoodpartnerRegister() {
             <p className="mt-1 text-sm text-slate-500">Create your account to join the FoodPartner network.</p>
 
             {/* Form (no functionality wired) */}
-            <form className="mt-6 grid gap-5">
+            <form className="mt-6 grid gap-5" onSubmit={submitForm}>
               {/* Name */}
               <div className="grid gap-2">
                 <label htmlFor="name" className="text-sm font-medium text-slate-700">Business Name</label>
@@ -25,6 +55,8 @@ export default function FoodpartnerRegister() {
                   id="name"
                   name="name"
                   type="text"
+                  value={form.name}
+                  onChange={handleChange}
                   placeholder="Delicious Foods Pvt Ltd"
                   autoComplete="organization"
                   required
@@ -39,6 +71,8 @@ export default function FoodpartnerRegister() {
                   id="email"
                   name="email"
                   type="email"
+                  value={form.email}
+                  onChange={handleChange}
                   placeholder="partner@example.com"
                   autoComplete="email"
                   required
@@ -53,6 +87,8 @@ export default function FoodpartnerRegister() {
                   id="password"
                   name="password"
                   type="password"
+                  value={form.password}
+                  onChange={handleChange}
                   placeholder="••••••••"
                   autoComplete="new-password"
                   required
@@ -67,6 +103,8 @@ export default function FoodpartnerRegister() {
                   id="contactname"
                   name="contactname"
                   type="text"
+                  value={form.contactname}
+                  onChange={handleChange}
                   placeholder="John Doe"
                   autoComplete="name"
                   required
@@ -81,6 +119,8 @@ export default function FoodpartnerRegister() {
                   id="phone"
                   name="phone"
                   type="tel"
+                   value={form.phone}
+                  onChange={handleChange}
                   placeholder="+91 98765 43210"
                   autoComplete="tel"
                   required
@@ -94,6 +134,8 @@ export default function FoodpartnerRegister() {
                 <textarea
                   id="address"
                   name="address"
+                   value={form.address}
+                  onChange={handleChange}
                   placeholder="123 Main Street, City, State, ZIP"
                   rows={3}
                   required

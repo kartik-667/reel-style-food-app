@@ -5,6 +5,7 @@ import UserRegister from './pages/UserRegister'
 import FoodpartnerRegister from './pages/FoodpartnerRegister'
 import FoodpartnerLogin from './pages/FoodpartnerLogin'
 import Home from './pages/Home'
+import CreateFoodpage from './pages/CreateFoodpage'
 function App() {
   return (
     <>
@@ -15,6 +16,8 @@ function App() {
       <Route path='/foodpartner/register' element={<FoodpartnerRegister></FoodpartnerRegister>}></Route>
       <Route path='/foodpartner/login' element={<FoodpartnerLogin></FoodpartnerLogin>}></Route>
       <Route path="/" element={<Home />} ></Route>
+      <Route path="/createfood" element={<CreateFoodpage></CreateFoodpage>
+      }></Route>
 
     </Routes>
     

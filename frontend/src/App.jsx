@@ -4,6 +4,7 @@ import UserLogin from './pages/UserLogin'
 import UserRegister from './pages/UserRegister'
 import FoodpartnerRegister from './pages/FoodpartnerRegister'
 import FoodpartnerLogin from './pages/FoodpartnerLogin'
+import Home from './pages/Home'
 function App() {
   return (
     <>
@@ -13,6 +14,7 @@ function App() {
       <Route path='/user/login' element={<UserLogin></UserLogin>}></Route>
       <Route path='/foodpartner/register' element={<FoodpartnerRegister></FoodpartnerRegister>}></Route>
       <Route path='/foodpartner/login' element={<FoodpartnerLogin></FoodpartnerLogin>}></Route>
+      <Route path="/" element={<Home />} ></Route>
 
     </Routes>
     

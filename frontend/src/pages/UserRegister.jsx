@@ -1,7 +1,35 @@
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react'
+import { Link, useNavigate,  } from 'react-router-dom';
+import axios from 'axios';
 export default function UserRegister() {
-    const navigate=useNavigate()
+  const navigate=useNavigate()
+    const [name, setname] = useState("")
+    const [email, setemail] = useState("")
+    const [password, setpassword] = useState("")
+
+    const handleForm=async (e)=>{
+        e.preventDefault()
+        console.log({name,email,password});
+        try {
+            const res=await axios.post("http://localhost:5555/api/auth/user/register",{
+                name,email,password
+            },{
+              withCredentials:true // to save data in cookies
+            })
+            console.log(res);
+            navigate("/")
+            
+            
+            
+        } catch (error) {
+            console.log(error);
+            
+            
+        }
+        
+
+    }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-6">
       <div className="w-full max-w-md">
@@ -18,7 +46,7 @@ export default function UserRegister() {
             <p className="mt-1 text-sm text-slate-500">Create a new account to continue.</p>
 
             {/* Form (no functionality wired) */}
-            <form className="mt-6 grid gap-5" /* onSubmit={handleSubmit} */>
+            <form className="mt-6 grid gap-5" onClick={handleForm} /* onSubmit={handleSubmit} */>
               {/* Name */}
               <div className="grid gap-2">
                 <label htmlFor="name" className="text-sm font-medium text-slate-700">Full name</label>
@@ -26,6 +54,8 @@ export default function UserRegister() {
                   id="name"
                   name="name"
                   type="text"
+                  value={name}
+                  onChange={(e)=> setname(e.target.value)}
                   placeholder="Kartik Verma"
                   autoComplete="name"
                   required
@@ -40,6 +70,8 @@ export default function UserRegister() {
                   id="email"
                   name="email"
                   type="email"
+                  value={email}
+                  onChange={(e)=> setemail(e.target.value)}
                   placeholder="you@example.com"
                   autoComplete="email"
                   required
@@ -57,6 +89,8 @@ export default function UserRegister() {
                   id="password"
                   name="password"
                   type="password"
+                  value={password}
+                  onChange={(e)=> setpassword(e.target.value)}
                   placeholder="••••••••"
                   autoComplete="current-password"
                   required

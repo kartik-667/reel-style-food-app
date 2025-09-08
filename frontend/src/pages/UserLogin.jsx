@@ -1,7 +1,37 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export default function UserLogin() {
+  const navigate=useNavigate()
+  const [email, setemail] = useState("")
+  const [password, setpassword] = useState("")
+
+
+  const handleForm=async (e)=>{
+    e.preventDefault()
+
+    try {
+      const res=await axios.post("http://localhost:5555/api/auth/user/login",{
+        email,password
+      },{withCredentials:true})
+
+      console.log(res);
+      navigate("/")
+      
+      
+    } catch (error) {
+      console.log("error occured", error);
+      
+      
+    }
+
+
+  }
+
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center p-6">
       <div className="w-full max-w-md">
@@ -18,7 +48,7 @@ export default function UserLogin() {
             <p className="mt-1 text-sm text-slate-500">Sign in to your account to continue.</p>
 
             {/* Form (no functionality wired) */}
-            <form className="mt-6 grid gap-5" /* onSubmit={handleSubmit} */>
+            <form className="mt-6 grid gap-5" onSubmit={handleForm} /* onSubmit={handleSubmit} */>
               {/* Name */}
               {/* <div className="grid gap-2">
                 <label htmlFor="name" className="text-sm font-medium text-slate-700">Full name</label>
@@ -42,6 +72,8 @@ export default function UserLogin() {
                   type="email"
                   placeholder="you@example.com"
                   autoComplete="email"
+                  value={email}
+                  onChange={(e)=> setemail(e.target.value)}
                   required
                   className="w-full rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-slate-900 placeholder:text-slate-400 shadow-sm focus:outline-none focus:ring-4 focus:ring-slate-900/5 focus:border-slate-300"
                 />
@@ -57,6 +89,8 @@ export default function UserLogin() {
                   id="password"
                   name="password"
                   type="password"
+                  value={password}
+                  onChange={(e)=> setpassword(e.target.value)}
                   placeholder="••••••••"
                   autoComplete="current-password"
                   required

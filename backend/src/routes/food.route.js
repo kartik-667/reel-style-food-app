@@ -19,7 +19,8 @@ foodRouter.get('/test',(req,res)=>{
 foodRouter.post('/',authenticate, upload.single("video"),createFood)
 
 //api to get all food items
-foodRouter.get('/',authenticate,getFoodItems)
+// foodRouter.get('/',authenticate,getFoodItems)
+foodRouter.get('/',getFoodItems)
 
 
 export default foodRouter

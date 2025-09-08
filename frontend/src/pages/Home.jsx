@@ -1,11 +1,36 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 export default function Home() {
   // Sample video data
     const handleButton=async ()=>{
         console.log('btn clicked');
         
     }
+
+    const [allvideos, setallvideos] = useState([])
+    
+    useEffect( () => {
+        const getVideos=async ()=>{
+            try {
+                const res=await axios.get("http://localhost:5555/api/food/")
+                // console.log(res);
+                setallvideos(res.data.data)
+                
+            } catch (error) {
+                console.log(error);
+                
+                
+            }
+            
+    
+        }
+        getVideos()
+
+      
+    
+      
+    }, [])
+    
 
   const videos = [
     {
@@ -30,14 +55,14 @@ export default function Home() {
 
   return (
     <div className="h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-black">
-      {videos.map((video) => (
+      {allvideos.map((video) => (
         <div
-          key={video.id}
+          key={video._id}
           className="relative h-screen w-full snap-start flex items-center justify-center"
         >
           {/* Video */}
           <video
-            src={video.url}
+            src={video.video}
             autoPlay
             loop
             muted

@@ -7,6 +7,8 @@ export default function FoodPartnerProfile() {
 
     const [profile, setprofile] = useState("")
     const [videos,setvideos]=useState([])
+
+    
     useEffect(() => {
       axios.get(`http://localhost:5555/api/foodpartner/id/${id}`).then((data)=>{
         // setprofile(data.partner)
@@ -16,8 +18,16 @@ export default function FoodPartnerProfile() {
       })
 
       axios.get(`http://localhost:5555/api/foodpartner/${id}`).then((data)=>{
-        console.log(data.data.data);
-        setvideos(data.data.data)
+        // console.log(data.data.data);
+        let tmp=data.data.data
+        tmp.reverse()
+        setvideos(tmp)
+        
+        
+        // tmpvid.reverse()
+        // setvideos(tmpvid)
+        
+        
         
       })
     
@@ -80,7 +90,7 @@ export default function FoodPartnerProfile() {
         {videos.length === 0 && (
           <h1 className='text-3xl font-semibold'>No videos found</h1>
         )}
-        {videos.length > 0 && videos.map((vid) => (
+        {videos.length > 0 &&  videos.map((vid) => (
           <div
             key={vid._id || vid.id}
             className="aspect-square bg-white rounded-xl border border-slate-200 flex items-center justify-center overflow-hidden shadow-sm"

@@ -4,6 +4,7 @@ import authRouter from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
 import foodRouter from "./routes/food.route.js";
 import cors from 'cors'
+import foodpartnerRouter from "./routes/foodpartner.route.js";
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -22,6 +23,7 @@ app.get('/',(req,res)=>{
 
 app.use('/api/auth',authRouter)
 app.use('/api/food',foodRouter)
+app.use('/api/foodpartner',foodpartnerRouter)
 
 export default app
 

@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import {Link} from 'react-router-dom'
+
 export default function Home() {
   // Sample video data
     const handleButton=async ()=>{
@@ -9,7 +11,7 @@ export default function Home() {
 
     const [allvideos, setallvideos] = useState([])
     
-    useEffect( () => {
+    useEffect(() => {
         const getVideos=async ()=>{
             try {
                 const res=await axios.get("http://localhost:5555/api/food/")
@@ -78,9 +80,11 @@ export default function Home() {
             </p>
 
             {/* Button */}
+            <Link to={"/foodpartner/" + video.foodpartner}>
             <button onClick={handleButton} className="w-full max-w-xs mx-auto rounded-xl bg-white/90 px-4 py-2.5 text-sm font-semibold text-slate-900 shadow hover:bg-white cursor-pointer">
               Visit Store
             </button>
+            </Link>
           </div>
 
           {/* Dark gradient overlay for better readability */}

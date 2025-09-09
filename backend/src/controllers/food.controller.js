@@ -58,4 +58,24 @@ const getFoodItems=async (req,res)=>{
     }
 }
 
-export {createFood, getFoodItems}
+//gets food by a particular foodpartner id
+const getFoodbypartnerId=async (req,res)=>{
+    const partnerID=req.params.id
+    try {
+
+        const resdata=await foodModel.find({foodpartner:partnerID})
+
+        return res.status(200).json({
+            data:resdata
+        })
+        
+    } catch (error) {
+        console.log(error);
+         return res.status(500).json({
+            message:'Internal server error'
+        })
+        
+    }
+}
+
+export {createFood, getFoodItems, getFoodbypartnerId}

@@ -1,6 +1,8 @@
 import foodModel from "../models/food.model.js";
+import foodpartnerModel from "../models/foodpartner.model.js";
 import { uploadVideo } from "../services/storage.service.js";
 import {v4 as uuidv4} from 'uuid'
+
 
 const createFood=async (req,res)=>{
     try {
@@ -78,4 +80,23 @@ const getFoodbypartnerId=async (req,res)=>{
     }
 }
 
-export {createFood, getFoodItems, getFoodbypartnerId}
+const getFoodpartnerbyID=async (req,res)=>{
+    const partnerID=req.params.pid
+    try {
+
+        const resdata=await foodpartnerModel.findOne({_id:partnerID})
+
+        return res.status(200).json({
+            partner:resdata
+        })
+        
+    } catch (error) {
+        console.log(error);
+         return res.status(500).json({
+            message:'Internal server error'
+        })
+        
+    }
+}
+
+export {createFood, getFoodItems, getFoodbypartnerId, getFoodpartnerbyID}

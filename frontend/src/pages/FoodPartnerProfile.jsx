@@ -76,7 +76,7 @@ export default function FoodPartnerProfile() {
       </div>
 
       {/* Videos Section */}
-      <div className="mt-6 grid grid-cols-2 gap-4">
+      <div className="mt-6 grid grid-cols-3 gap-4">
         {videos.length === 0 && (
           <h1 className='text-3xl font-semibold'>No videos found</h1>
         )}

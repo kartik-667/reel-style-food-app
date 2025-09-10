@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { useRef } from "react";
+
+import axios from "axios";
+
 export default function CreateFood() {
   const [videoPreview, setVideoPreview] = useState(null);
   const videoRef=useRef(null)
+  const [name, setname] = useState("")
+  const [description, setdescription] = useState("")
 
   const handleVideoChange = (e) => {
     const file = e.target.files[0];
@@ -21,6 +26,36 @@ export default function CreateFood() {
     // console.log(vidtag.);
     
   };
+
+  const handleFormSubmit=async (e)=>{
+    e.preventDefault()
+    // const vidFile=e.target.files
+    // console.log(e.target.files[0]);
+    const videofile=videoRef.current.files[0]
+    // console.log(videofile);
+    // console.log({name,description});
+    try {
+        const formdata=new FormData()
+        formdata.append("name",name)
+        formdata.append("description",description)
+        formdata.append("video",videofile)
+
+        const response=await axios.post("http://localhost:5555/api/food/",formdata,{withCredentials:true})
+        console.log(response);
+        
+
+        
+    } catch (error) {
+        console.log(error);
+
+        
+        
+    }
+    
+    
+    
+
+  }
 
   return (
     <div className="min-h-screen bg-slate-100 flex items-center justify-center p-6">
@@ -51,7 +86,7 @@ export default function CreateFood() {
         )}
 
         {/* Form */}
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleFormSubmit}>
           {/* Name */}
           <div>
             <label className="block text-sm font-medium text-slate-700 mb-1">
@@ -59,6 +94,8 @@ export default function CreateFood() {
             </label>
             <input
               type="text"
+              value={name}
+              onChange={(e)=> setname(e.target.value)}
               placeholder="Enter food name"
               className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
@@ -70,6 +107,8 @@ export default function CreateFood() {
               Description
             </label>
             <textarea
+            value={description}
+            onChange={(e)=> setdescription(e.target.value)}
               placeholder="Write a short description..."
               rows="4"
               className="w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"

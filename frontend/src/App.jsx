@@ -5,8 +5,9 @@ import UserRegister from './pages/UserRegister'
 import FoodpartnerRegister from './pages/FoodpartnerRegister'
 import FoodpartnerLogin from './pages/FoodpartnerLogin'
 import Home from './pages/Home'
-import CreateFoodpage from './pages/CreateFoodpage'
 import FoodPartnerProfile from './pages/FoodPartnerProfile'
+import Createfood from './pages/Createfood'
+
 function App() {
   return (
     <>
@@ -17,10 +18,10 @@ function App() {
       <Route path='/foodpartner/register' element={<FoodpartnerRegister></FoodpartnerRegister>}></Route>
       <Route path='/foodpartner/login' element={<FoodpartnerLogin></FoodpartnerLogin>}></Route>
       <Route path="/" element={<Home />} ></Route>
-      <Route path="/createfood" element={<CreateFoodpage></CreateFoodpage>
-      }></Route>
+      
 
       <Route path="/foodpartner/:id" element={<FoodPartnerProfile></FoodPartnerProfile>}></Route>
+      <Route path="/createfood" element={<Createfood></Createfood>} ></Route>
 
     </Routes>
     

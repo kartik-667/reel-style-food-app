@@ -1,5 +1,6 @@
 import foodModel from "../models/food.model.js";
 import foodpartnerModel from "../models/foodpartner.model.js";
+import likeModel from "../models/like.model.js";
 import { uploadVideo } from "../services/storage.service.js";
 import {v4 as uuidv4} from 'uuid'
 
@@ -99,4 +100,45 @@ const getFoodpartnerbyID=async (req,res)=>{
     }
 }
 
-export {createFood, getFoodItems, getFoodbypartnerId, getFoodpartnerbyID}
+const likeFood=async (req,res)=>{
+    try {
+        const {foodID}=req.body
+        
+        const userid=req.user.userid
+
+        const fooditem=await foodModel.findOne({_id:foodID})
+        
+        const result=await likeModel.findOne({user:userid, food:foodID})
+
+        if(result){
+            //already liked, so dislike it 
+            const response=await likeModel.deleteOne({user:userid, food:foodID})
+            fooditem.likeCount-=1
+            await fooditem.save()
+            return res.status(200).json({
+                msg:"food disliked by user"
+            })
+        }else{
+            const newres=await likeModel.create({
+                user:userid,
+                food:foodID
+            })
+            fooditem.likeCount+=1
+            await fooditem.save()
+            return res.status(201).json({
+                msg:"new like created",
+                newres
+            })
+        }
+
+        
+    } catch (error) {
+         console.log(error);
+         return res.status(500).json({
+            message:'Internal server error'
+        })
+        
+    }
+}
+
+export {createFood, getFoodItems, getFoodbypartnerId, getFoodpartnerbyID, likeFood}

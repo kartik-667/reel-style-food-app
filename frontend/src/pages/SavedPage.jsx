@@ -199,9 +199,17 @@ export default function SavedPage() {
 
     useEffect(() => {
       async function getSavedVids(){
+        const result=await axios.get(`http://localhost:5555/api/food/${id}/items`,{
+            withCredentials:true
+        })
+        // console.log(result.data.items);
+        setsavedVids(result.data.items)
+        setallvideos(result.data.items)
+
         
 
       }
+      getSavedVids()
     
       
     }, [])
@@ -287,7 +295,7 @@ export default function SavedPage() {
     const getVideos = async () => {
       try {
         const res = await axios.get("http://localhost:5555/api/food/");
-        setallvideos(res.data.data);
+        // setallvideos(res.data.data);
         // console.log(allvideos);
         
       } catch (error) {
@@ -301,7 +309,10 @@ export default function SavedPage() {
     <div className="relative h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-black">
       {/* Video feed */}
       <h1>this is saved page</h1>
-      {allvideos.map((video) => (
+      {savedVids.length ===0 && (
+        <h1>No Videos found</h1>
+      )}
+      {savedVids.length >0 &&  allvideos.map((video) => (
         <div
           key={video._id}
           className="relative h-screen w-full snap-start flex items-center justify-center"

@@ -1,6 +1,6 @@
 import express from "express";
 import { authenticate, foodpartnerAuthenticate } from "../middlewares/auth.middleware.js";
-import { createFood, getFoodItems, likeFood, saveFood } from "../controllers/food.controller.js";
+import { createFood, getFoodItems, getSaveditems, likeFood, saveFood } from "../controllers/food.controller.js";
 import multer from 'multer' //as express cant read any file by default so we use this
 const foodRouter=express.Router()
 
@@ -24,6 +24,8 @@ foodRouter.post("/save",authenticate,saveFood)
 //api to get all food items
 // foodRouter.get('/',authenticate,getFoodItems)
 foodRouter.get('/',getFoodItems)
+
+foodRouter.get('/:id/items',authenticate,getSaveditems)
 
 
 export default foodRouter

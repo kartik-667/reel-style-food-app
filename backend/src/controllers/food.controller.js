@@ -117,7 +117,8 @@ const likeFood=async (req,res)=>{
             fooditem.likeCount-=1
             await fooditem.save()
             return res.status(200).json({
-                msg:"food disliked by user"
+                msg:"food disliked by user",
+                liked:false //for frontend works
             })
         }else{
             const newres=await likeModel.create({
@@ -128,7 +129,8 @@ const likeFood=async (req,res)=>{
             await fooditem.save()
             return res.status(201).json({
                 msg:"new like created",
-                newres
+                newres,
+                liked:true
             })
         }
 
@@ -152,7 +154,8 @@ const saveFood=async (req,res)=>{
         if(savedItem){
             const result=await saveModel.deleteOne({user:userid, food:foodID})
             return res.status(200).json({
-                msg:"food unsaved successfully"
+                msg:"food unsaved successfully",
+                saved:false
             })
         }else{
             const result=await saveModel.create({
@@ -161,6 +164,7 @@ const saveFood=async (req,res)=>{
             })
             return res.status(200).json({
                 msg:"food saved",
+                saved:true,
                 result
             })
         }
@@ -174,4 +178,43 @@ const saveFood=async (req,res)=>{
     }
 }
 
-export {createFood, getFoodItems, getFoodbypartnerId, getFoodpartnerbyID, likeFood,saveFood}
+const getSaveditems=async (req,res)=>{
+    try {
+        const userid=req.params.id
+
+        const result=await saveModel.find({user:userid})
+        if(result.length ===0){
+            return res.status(400).json({
+                msg:"no user/video found"
+            })
+        }
+
+        const savedFoods=await Promise.all(result.map(async (ele)=>{
+            const item=await foodModel.findOne({_id:ele.food})
+            if(item){
+                return item
+            }else{
+                return null
+            }
+
+        }))
+
+        const filtered=savedFoods.filter((ele)=> ele!==null)
+        console.log(filtered);
+        
+
+        return res.status(200).json({
+            items:filtered
+        })
+
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message:'Internal server error'
+        })
+        
+    }
+}
+
+export {createFood, getFoodItems, getFoodbypartnerId, getFoodpartnerbyID, likeFood,saveFood, getSaveditems}

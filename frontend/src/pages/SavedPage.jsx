@@ -189,10 +189,24 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { FaHeart, FaRegHeart, FaCommentDots, FaBookmark, FaHome } from "react-icons/fa";
 
-export default function Home() {
+export default function SavedPage() {
+    const {id}=useParams()
+
+    const [savedVids,setsavedVids]=useState([])
+
+    useEffect(() => {
+      async function getSavedVids(){
+        
+
+      }
+    
+      
+    }, [])
+    
+
   const handleButton = async () => {
     console.log("btn clicked");
   };
@@ -246,6 +260,7 @@ export default function Home() {
   }
 
   const handleSave=async (video)=>{
+    
     try {
       const response=await axios.post("http://localhost:5555/api/food/save",{
         foodID:video._id
@@ -285,6 +300,7 @@ export default function Home() {
   return (
     <div className="relative h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-black">
       {/* Video feed */}
+      <h1>this is saved page</h1>
       {allvideos.map((video) => (
         <div
           key={video._id}
@@ -304,6 +320,7 @@ export default function Home() {
           <div className="absolute bottom-20 left-0 right-0 px-4 text-center">
             <p className="mb-3 text-white text-2xl font-medium line-clamp-2">
               {video.description}
+              <h1>this is saved page my guy</h1>
             </p>
 
             {/* Buttons row */}

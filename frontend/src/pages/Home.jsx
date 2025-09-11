@@ -199,7 +199,36 @@ export default function Home() {
 
   const handleLike=async (video)=>{
     console.log(video);
+    try {
+      const result=await axios.post("http://localhost:5555/api/food/like",{
+        foodID:video._id
+      },{withCredentials:true}) //with credentials is req as we are dealing with cookies and auth
+      console.log(result);
+      
+      
+    } catch (error) {
+      console.log("error occured",error);
+      
+      
+    }
     
+
+  }
+
+  const handleSave=async (video)=>{
+    try {
+      const response=await axios.post("http://localhost:5555/api/food/save",{
+        foodID:video._id
+      },{
+        withCredentials:true
+      })
+      console.log(response);
+      
+      
+    } catch (error) {
+      console.log("error occured",error);
+      
+    }
 
   }
 
@@ -255,7 +284,7 @@ export default function Home() {
                 <span className="text-[11px]">Comment</span>
               </button>
 
-              <button className="flex flex-col items-center text-white hover:text-yellow-400 transition">
+              <button onClick={()=> handleSave(video)} className="flex flex-col items-center text-white hover:text-yellow-400 transition">
                 <FaBookmark size={22} />
                 <span className="text-[11px]">Save</span>
               </button>

@@ -5,6 +5,8 @@ import { AuthContext } from "../contexts/Globalcontext";
 export default function Navbar() {
 //   const [user, setuser] = useState(null);
   const {user,setuser}=useContext(AuthContext)
+  console.log(user);
+  
     
 
   // ✅ Check if user is logged in
@@ -59,7 +61,7 @@ export default function Navbar() {
         <Link to="/" className="hover:text-indigo-600 transition">
           Home
         </Link>
-        <Link to="/saved" className="hover:text-indigo-600 transition">
+        <Link to={user!==null ? `/${user.userid}/saved` : `/user/login`}  className="hover:text-indigo-600 transition">
           Saved
         </Link>
         <Link to="/explore" className="hover:text-indigo-600 transition">

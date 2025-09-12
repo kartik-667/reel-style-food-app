@@ -8,10 +8,13 @@ import Home from './pages/Home'
 import FoodPartnerProfile from './pages/FoodPartnerProfile'
 import Createfood from './pages/Createfood'
 import SavedPage from './pages/SavedPage'
-
+import Navbar from './components/Navbar'
 function App() {
   return (
     <>
+    
+    <Navbar></Navbar>
+    
 
     <Routes>
       <Route path='/user/register' element={<UserRegister></UserRegister>}></Route>

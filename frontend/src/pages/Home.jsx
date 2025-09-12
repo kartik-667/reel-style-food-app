@@ -469,7 +469,7 @@ export default function Home() {
   return (
     <div className="relative h-screen w-screen snap-y snap-mandatory overflow-y-scroll bg-black">
       {/* Navbar */}
-      <nav className="w-full bg-white shadow-md px-6 py-3 flex items-center justify-between sticky top-0 z-50">
+      {/* <nav className="w-full bg-white shadow-md px-6 py-3 flex items-center justify-between sticky top-0 z-50">
         <Link to="/" className="text-xl font-bold text-indigo-600">
           🍔 FoodReels
         </Link>
@@ -495,15 +495,25 @@ export default function Home() {
               Sign Out
             </button>
           ) : (
-            <Link
+            <div className="flex gap-1">
+              <Link
               to="/user/login"
               className="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition"
             >
               Sign In
             </Link>
+            <Link
+              to="/foodpartner/login"
+              className="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition"
+            >
+              Food Partner Sign In
+            </Link>
+
+            </div>
+            
           )}
         </div>
-      </nav>
+      </nav> */}
 
       {/* Video feed */}
       {allvideos.map((video) => (

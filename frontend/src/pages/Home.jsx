@@ -373,7 +373,28 @@ export default function Home() {
   const [allvideos, setallvideos] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(true); // example, replace with auth state
 
-  
+  const [user, setuser] = useState(null)
+
+  useEffect(()=>{
+    async function check(){
+      const result=await axios.post("http://localhost:5555/api/auth/user/checksignin",{},{withCredentials:true})
+
+      if(result){
+        // console.log(result.data);
+        if(result.data.result){
+          setuser(result.data.user)
+        }else{
+          setuser(null)
+        }
+        
+      }else{
+        console.log('user not logged in');
+        
+      }
+    }
+    check()
+
+  },[])
 
   const handleButton = async () => {
     console.log("btn clicked");
@@ -422,9 +443,15 @@ export default function Home() {
     }
   };
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
     // clear cookies / tokens here
-    setIsLoggedIn(false);
+    const result=await axios.post("http://localhost:5555/api/auth/user/logout",{},{
+      withCredentials:true
+    })
+    console.log(result);
+    
+
+    setuser(null);
   };
 
   useEffect(() => {
@@ -460,7 +487,7 @@ export default function Home() {
         </div>
 
         <div>
-          {isLoggedIn ? (
+          {user!==null ? (
             <button
               onClick={handleSignOut}
               className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
@@ -469,7 +496,7 @@ export default function Home() {
             </button>
           ) : (
             <Link
-              to="/login"
+              to="/user/login"
               className="bg-indigo-500 text-white px-4 py-2 rounded-lg hover:bg-indigo-600 transition"
             >
               Sign In

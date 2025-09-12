@@ -189,11 +189,12 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaHeart, FaRegHeart, FaCommentDots, FaBookmark, FaHome } from "react-icons/fa";
 
 export default function SavedPage() {
     const {id}=useParams()
+    const navigate=useNavigate()
 
     const [savedVids,setsavedVids]=useState([])
 

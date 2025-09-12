@@ -579,7 +579,7 @@ export default function Home() {
       ))}
 
       {/* Bottom navigation bar */}
-      <div className="fixed bottom-2 left-1/2 -translate-x-1/2 w-[200px] bg-black/50 backdrop-blur-md text-white flex justify-between items-center rounded-full shadow-lg border border-slate-700/50 px-4 py-2">
+      {/* <div className="fixed bottom-2 left-1/2 -translate-x-1/2 w-[200px] bg-black/50 backdrop-blur-md text-white flex justify-between items-center rounded-full shadow-lg border border-slate-700/50 px-4 py-2">
         <Link
           to="/"
           className="flex flex-col items-center flex-1 text-center hover:text-indigo-400 border-r border-slate-600"
@@ -594,7 +594,7 @@ export default function Home() {
           <FaBookmark size={20} />
           <span className="text-[11px]">Saved</span>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }

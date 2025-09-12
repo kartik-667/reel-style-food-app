@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { AuthContext } from '../contexts/Globalcontext';
 export default function UserLogin() {
   const navigate=useNavigate()
   const [email, setemail] = useState("")
   const [password, setpassword] = useState("")
+  const {user,setuser}=useContext(AuthContext)
 
 
   const handleForm=async (e)=>{
@@ -17,8 +18,13 @@ export default function UserLogin() {
         email,password
       },{withCredentials:true})
 
-      console.log(res);
-      navigate("/")
+      // console.log(res);
+      if(res.data?.userid){
+        setuser(res.data.userid)
+        navigate("/")
+      }else{
+        setuser(null)
+      }
       
       
     } catch (error) {

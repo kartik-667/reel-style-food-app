@@ -71,11 +71,13 @@ const loginUser=async (req,res)=>{
             })
 
             return res.status(200).json({
-                msg:"login successful"
+                msg:"login successful",
+                userid:user._id
             })
         }else{
             return res.status(400).json({
-                msg:"invalid email or password"
+                msg:"invalid email or password",
+
             })
 
         }

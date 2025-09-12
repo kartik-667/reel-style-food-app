@@ -1,32 +1,37 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState } from "react";
-
-
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../contexts/Globalcontext";
 export default function Navbar() {
-  const [user, setUser] = useState(null);
+//   const [user, setuser] = useState(null);
+  const {user,setuser}=useContext(AuthContext)
+    
 
   // ✅ Check if user is logged in
-  useEffect(() => {
-    async function check() {
-      try {
-        const result = await axios.post(
-          "http://localhost:5555/api/auth/user/checksignin",
-          {},
-          { withCredentials: true }
-        );
+//   useEffect(() => {
+//     async function check() {
+//       try {
+//         const result = await axios.post(
+//           "http://localhost:5555/api/auth/user/checksignin",
+//           {},
+//           { withCredentials: true }
+//         );
 
-        if (result.data?.result) {
-          setUser(result.data.user);
-        } else {
-          setUser(null);
-        }
-      } catch (error) {
-        console.log("Error checking user:", error);
-      }
-    }
-    check();
-  }, []);
+//         if (result.data?.result) {
+//           setuser(result.data.user);
+//         //   console.log(result.data.user);
+//         // console.log(user);
+        
+          
+//         } else {
+//           setuser(null);
+//         }
+//       } catch (error) {
+//         console.log("Error checking user:", error);
+//       }
+//     }
+//     check();
+//   }, []);
 
   // ✅ Sign Out
   const handleSignOut = async () => {
@@ -36,7 +41,7 @@ export default function Navbar() {
         {},
         { withCredentials: true }
       );
-      setUser(null);
+      setuser(null);
     } catch (error) {
       console.log("Signout error:", error);
     }

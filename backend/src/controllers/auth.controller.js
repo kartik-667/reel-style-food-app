@@ -194,5 +194,32 @@ const loginFoodpartner=async (req,res)=>{
     }
 }
 
+const checkSignIn=async (req,res)=>{
+    try {
+        const user=req.user
 
-export {registerUser, loginUser, logoutUser, registerFoodpartner, loginFoodpartner}
+        if(user){
+            return res.status(200).json({
+                msg:"user found",
+                user:user,
+                result:true
+            })
+        }else{
+            return res.status(400).json({
+                msg:"user not found",
+                result:false
+
+            })
+        }
+        
+    } catch (error) {
+         console.log(error);
+        return res.status(500).json({
+            message:'Internal server error'
+        })
+        
+    }
+}
+
+
+export {registerUser, loginUser, logoutUser, registerFoodpartner, loginFoodpartner, checkSignIn}
